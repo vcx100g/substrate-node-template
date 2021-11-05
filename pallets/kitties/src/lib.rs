@@ -233,8 +233,7 @@ pub mod pallet {
 		#[pallet::weight(100)]
 		pub fn buy_kitty(
 			origin: OriginFor<T>, 
-			kitty_id: T::Hash, 
-			bid_price: BalanceOf<T>
+			kitty_id: T::Hash
 		) -> DispatchResult {
 			let buyer = ensure_signed(origin)?;
 
@@ -243,14 +242,10 @@ pub mod pallet {
 			ensure!(kitty.owner != buyer, <Error<T>>::BuyerIsKittyOwner);
 
 			// Check the kitty is for sale and the kitty ask price <= bid_price
-			if let Some(ask_price) = kitty.price {
-				ensure!(ask_price <= bid_price, <Error<T>>::KittyBidPriceTooLow);
-			} else {
-				Err(<Error<T>>::KittyNotForSale)?;
-			}
+			let ask_price = kitty.price.clone().ok_or(<Error<T>>::KittyNotForSale)?;
 
 			// Check the buyer has enough free balance
-			ensure!(T::Currency::free_balance(&buyer) >= bid_price, <Error<T>>::NotEnoughBalance);
+			ensure!(T::Currency::free_balance(&buyer) >= ask_price, <Error<T>>::NotEnoughBalance);
 
 			// Verify the buyer has the capacity to receive one more kitty
 			let to_owned = <KittiesOwned<T>>::get(&buyer);
@@ -259,12 +254,12 @@ pub mod pallet {
 			let seller = kitty.owner.clone();
 
 			// Transfer the amount from buyer to seller
-			T::Currency::transfer(&buyer, &seller, bid_price, ExistenceRequirement::KeepAlive)?;
+			T::Currency::transfer(&buyer, &seller, ask_price, ExistenceRequirement::KeepAlive)?;
 
 			// Transfer the kitty from seller to buyer
 			Self::transfer_kitty_to(&kitty_id, &buyer)?;
 
-			Self::deposit_event(Event::Bought(buyer, seller, kitty_id, bid_price));
+			Self::deposit_event(Event::Bought(buyer, seller, kitty_id, ask_price));
 
 			Ok(())
 		}
