@@ -49,7 +49,7 @@ pub mod pallet {
 	#[pallet::call]
 	impl<T: Config> Pallet<T> {
 		#[pallet::weight(10_000 + T::DbWeight::get().writes(1))]
-		pub fn simple_transfer(
+		pub fn transfer(
 			origin: OriginFor<T>,
 			dest: T::AccountId,
 			amount: T::Balance
