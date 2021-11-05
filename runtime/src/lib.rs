@@ -41,6 +41,7 @@ pub use sp_runtime::BuildStorage;
 pub use sp_runtime::{Perbill, Permill};
 
 pub use pallet_kitties;
+pub use pallet_simple_transfer;
 /// Import the template pallet.
 pub use pallet_template;
 
@@ -88,7 +89,7 @@ pub mod opaque {
 }
 
 // To learn more about runtime versioning and what each of the following value means:
-//   https://substrate.dev/docs/en/knowledgebase/runtime/upgrades#runtime-versioning
+//   https://substrate.io/docs/en/knowledgebase/runtime/upgrades#runtime-versioning
 #[sp_version::runtime_version]
 pub const VERSION: RuntimeVersion = RuntimeVersion {
 	spec_name: create_runtime_str!("node-template"),
@@ -287,6 +288,10 @@ impl pallet_kitties::Config for Runtime {
 	type MaxKittyOwned = MaxKittyOwned;
 }
 
+impl pallet_simple_transfer::Config for Runtime {
+	type Event = Event;
+}
+
 // Create the runtime by composing the FRAME pallets that were previously configured.
 construct_runtime!(
 	pub enum Runtime where
@@ -305,6 +310,7 @@ construct_runtime!(
 		// Include the custom logic from the pallet-template in the runtime.
 		TemplateModule: pallet_template::{Pallet, Call, Storage, Event<T>},
 		Kitties: pallet_kitties::{Pallet, Call, Config<T>, Storage, Event<T>},
+		SimpleTransfer: pallet_simple_transfer::{Pallet, Call, Storage, Event<T>},
 	}
 );
 

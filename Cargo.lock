@@ -3554,6 +3554,7 @@ dependencies = [
  "pallet-grandpa",
  "pallet-kitties",
  "pallet-randomness-collective-flip",
+ "pallet-simple-transfer",
  "pallet-sudo",
  "pallet-template",
  "pallet-timestamp",
@@ -3846,6 +3847,21 @@ dependencies = [
  "sp-staking",
  "sp-std",
  "sp-trie",
+]
+
+[[package]]
+name = "pallet-simple-transfer"
+version = "3.0.0-monthly-2021-10"
+dependencies = [
+ "frame-benchmarking",
+ "frame-support",
+ "frame-system",
+ "pallet-balances",
+ "parity-scale-codec",
+ "scale-info",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
 ]
 
 [[package]]

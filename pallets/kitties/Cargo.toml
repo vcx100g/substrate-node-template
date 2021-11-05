@@ -2,7 +2,7 @@
 authors = ['Substrate DevHub <https://github.com/substrate-developer-hub>']
 description = 'FRAME pallet template for defining custom runtime logic.'
 edition = '2018'
-homepage = 'https://substrate.dev'
+homepage = 'https://substrate.io'
 license = 'Unlicense'
 name = 'pallet-kitties'
 readme = 'README.md'
