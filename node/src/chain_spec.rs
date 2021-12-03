@@ -157,11 +157,11 @@ fn testnet_genesis(
         node_authorization: NodeAuthorizationConfig {
         nodes: vec![
 			(
-                OpaquePeerId(bs58::decode("12D3KooWBmAwcd4PJNJvfV89HwE48nwkRmAgo8Vy3uQEyNNHBox2").into_vec().unwrap()),
+                OpaquePeerId(bs58::decode("12D3KooWSX3VXCP2V5BmNMTKELDa76aXfG8td6L5iqehDj2GDACx").into_vec().unwrap()),
                 endowed_accounts[0].clone()
             ),
             (
-                OpaquePeerId(bs58::decode("12D3KooWQYV9dGMFoRzNStwpXztXaBUjtPqi6aU76ZgUriHhKust").into_vec().unwrap()),
+                OpaquePeerId(bs58::decode("12D3KooWAjUZ5bW1oTZMd1M9Dac9jpasTkdEYkuShfzY9y5o2WpT").into_vec().unwrap()),
                 endowed_accounts[1].clone()
             ),
 			],
